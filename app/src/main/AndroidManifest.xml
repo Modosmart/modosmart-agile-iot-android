@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ControlActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/control_title" />
     </application>
 

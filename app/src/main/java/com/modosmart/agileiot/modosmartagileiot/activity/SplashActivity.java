@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler splashTimer = new Handler();
         splashTimer.postDelayed(new Runnable() {
             public void run() {
-                Intent configIntent = new Intent(SplashActivity.this, ControlActivity.class);
+                Intent configIntent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(configIntent);
                 finish();
             }
