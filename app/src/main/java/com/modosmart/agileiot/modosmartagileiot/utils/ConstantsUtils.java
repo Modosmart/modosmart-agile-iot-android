@@ -1,7 +1,7 @@
 package com.modosmart.agileiot.modosmartagileiot.utils;
 
 public class ConstantsUtils {
-    public static final String SOCKET_SERVER = "http://192.168.1.108:3000";
+    public static final String SOCKET_SERVER = "http://192.168.1.29:3000";
 
     public static final String FRAGMENT_WIFI_TAG = "WiFiFragment";
     public static final String FRAGMENT_BLE_TAG = "BleFragment";
