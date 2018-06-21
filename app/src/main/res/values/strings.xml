@@ -1,11 +1,33 @@
 <resources>
     <string name="app_name">Modosmart</string>
 
-    <string name="control_title">Modosmart</string>
-    <string name="menu_wifi">WiFi</string>
-    <string name="menu_ble">BLE</string>
-    <string name="menu_about">About</string>
-
+    <string name="main_title">Modosmart</string>
+    <string name="readings_title">Readings</string>
 
     <string name="ac_control">AC Control</string>
+
+    <string name="room1_name">Room1</string>
+    <string name="room2_name">Room2</string>
+
+    <string name="room_sensor_title">Room Sensor</string>
+    <string name="room_sensor_temperature">Temperature</string>
+    <string name="room_sensor_temperature_default">30\u2103</string>
+    <string name="room_sensor_humidity">Humidity</string>
+    <string name="room_sensor_humidity_default">36.06%</string>
+    <string name="room_sensor_presence">Presence</string>
+    <string name="room_sensor_presence_default">255</string>
+    <string name="room_sensor_battery">Battery</string>
+    <string name="room_sensor_battery_default">100%</string>
+    <string name="room_sensor_firmware">Firmware</string>
+    <string name="room_sensor_firmware_default">1.0.0</string>
+    <string name="window_sensor_title">Window Sensor</string>
+    <string name="window_sensor_battery">Battery</string>
+    <string name="window_sensor_battery_default">100%</string>
+    <string name="window_sensor_firmware">Firmware</string>
+    <string name="window_sensor_firmware_default">1.0.0</string>
+    <string name="air_conditioner_title">Air Conditioner</string>
+    <string name="air_conditioner_status">Status  </string>
+
+    <string name="air_condition_sensor">AC Switch</string>
+    <string name="air_condition_status">Status</string>
 </resources>

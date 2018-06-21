@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="title_text_size">20sp</dimen>
+    <dimen name="card_margin">10dp</dimen>
+    <dimen name="card_album_radius">0dp</dimen>
 </resources>

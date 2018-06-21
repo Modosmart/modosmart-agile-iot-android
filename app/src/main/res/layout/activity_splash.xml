@@ -13,7 +13,16 @@
     android:fitsSystemWindows="true">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/agileLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:contentDescription="@string/app_name"
+        android:layout_above="@id/elioLogo"
+        android:src="@drawable/agile_logo"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:id="@+id/elioLogo"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
