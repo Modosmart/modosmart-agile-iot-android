@@ -1,7 +1,7 @@
 package com.modosmart.agileiot.modosmartagileiot.utils;
 
 public class ConstantsUtils {
-    public static final String SOCKET_SERVER = "http://192.168.1.105:3030";
+    public static final String SOCKET_SERVER = "http://192.168.1.63:3030";
 
     public static final String INTESIS_MESSAGE_GET_STATUS = "GET,1:ONOFF\r\n";
     public static final String INTESIS_MESSAGE_SET_STATUS_ON = "SET,1:ONOFF,ON\r\n";

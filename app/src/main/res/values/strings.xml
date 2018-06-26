@@ -11,23 +11,25 @@
 
     <string name="room_sensor_title">Room Sensor</string>
     <string name="room_sensor_temperature">Temperature</string>
-    <string name="room_sensor_temperature_default">30\u2103</string>
+    <string name="room_sensor_temperature_default">0\u2103</string>
     <string name="room_sensor_humidity">Humidity</string>
-    <string name="room_sensor_humidity_default">36.06%</string>
+    <string name="room_sensor_humidity_default">0%</string>
     <string name="room_sensor_presence">Presence</string>
-    <string name="room_sensor_presence_default">255</string>
+    <string name="room_sensor_presence_default">100</string>
     <string name="room_sensor_battery">Battery</string>
-    <string name="room_sensor_battery_default">100%</string>
+    <string name="room_sensor_battery_default">0%</string>
     <string name="room_sensor_firmware">Firmware</string>
-    <string name="room_sensor_firmware_default">1.0.0</string>
+    <string name="room_sensor_firmware_default">0.0</string>
     <string name="window_sensor_title">Window Sensor</string>
+    <string name="window_sensor_status">Status</string>
+    <string name="window_sensor_status_default">closed</string>
     <string name="window_sensor_battery">Battery</string>
-    <string name="window_sensor_battery_default">100%</string>
+    <string name="window_sensor_battery_default">87%</string>
     <string name="window_sensor_firmware">Firmware</string>
-    <string name="window_sensor_firmware_default">1.0.0</string>
+    <string name="window_sensor_firmware_default">1.0</string>
     <string name="air_conditioner_title">Air Conditioner</string>
     <string name="air_conditioner_status">Status  </string>
 
     <string name="air_condition_sensor">AC Switch</string>
-    <string name="air_condition_status">Status</string>
+    <string name="air_condition_status">Status    </string>
 </resources>

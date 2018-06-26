@@ -29,8 +29,10 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
     private TextView roomSensorBatteryValue;
     private TextView roomSensorFirmwareValue;
 
-    private TextView windowSensorBatteryValue;
-    private TextView windowSensorFirmwareValue;
+//    private TextView windowSensorBatteryValue;
+//    private TextView windowSensorFirmwareValue;
+
+    private boolean firstTimeFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,8 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
         roomSensorBatteryValue = findViewById(R.id.room_sensor_battery_value);
         roomSensorFirmwareValue = findViewById(R.id.room_sensor_firmware_value);
 
-        windowSensorBatteryValue = findViewById(R.id.window_sensor_battery_value);
-        windowSensorFirmwareValue = findViewById(R.id.window_sensor_firmware_value);
+//        windowSensorBatteryValue = findViewById(R.id.window_sensor_battery_value);
+//        windowSensorFirmwareValue = findViewById(R.id.window_sensor_firmware_value);
 
         initSocket();
 
@@ -115,33 +117,33 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
 
 
                             // Get battery
-                            JSONObject window_sensor_battery = new JSONObject();
-                            try {
-                                window_sensor_battery.put("command", "readingDevice");
-                                window_sensor_battery.put("deviceId", ConstantsUtils.WINDOW_SENSOR_ID);
-                                window_sensor_battery.put("componentId", "Battery Level");
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                            }
-                            mSocket.emit("agile", room_sensor_battery);
-                            // Get firmware
-                            JSONObject window_sensor_firmware = new JSONObject();
-                            try {
-                                window_sensor_firmware.put("command", "readingDevice");
-                                window_sensor_firmware.put("deviceId", ConstantsUtils.WINDOW_SENSOR_ID);
-                                window_sensor_firmware.put("componentId", "Firmware Revision");
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                            }
-                            mSocket.emit("agile", window_sensor_firmware);
+//                            JSONObject window_sensor_battery = new JSONObject();
+//                            try {
+//                                window_sensor_battery.put("command", "readingDevice");
+//                                window_sensor_battery.put("deviceId", ConstantsUtils.WINDOW_SENSOR_ID);
+//                                window_sensor_battery.put("componentId", "Battery Level");
+//                            } catch (JSONException e) {
+//                                // TODO Auto-generated catch block
+//                            }
+//                            mSocket.emit("agile", room_sensor_battery);
+//                            // Get firmware
+//                            JSONObject window_sensor_firmware = new JSONObject();
+//                            try {
+//                                window_sensor_firmware.put("command", "readingDevice");
+//                                window_sensor_firmware.put("deviceId", ConstantsUtils.WINDOW_SENSOR_ID);
+//                                window_sensor_firmware.put("componentId", "Firmware Revision");
+//                            } catch (JSONException e) {
+//                                // TODO Auto-generated catch block
+//                            }
+//                            mSocket.emit("agile", window_sensor_firmware);
                         }
                     });
                 }
             }
         };
 
-// schedule the task to run starting now and then every hour...
-        timer.schedule (task, 0L, 1000*30);   // 30 seconds
+        // schedule the task to run starting now and then every hour...
+        timer.schedule (task, 0L, 1000*10);   // 10 seconds
     }
 
     @Override
@@ -153,14 +155,12 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            if (mSocket != null && mSocket.connected()) {
+            if (mSocket != null && mSocket.connected() && !firstTimeFlag) {
                 mSocket.emit("intesis_message", ConstantsUtils.INTESIS_MESSAGE_SET_STATUS_ON);
-                mSocket.emit("intesis_disconnect");
             }
         } else {
-            if (mSocket != null && mSocket.connected()) {
+            if (mSocket != null && mSocket.connected() && !firstTimeFlag) {
                 mSocket.emit("intesis_message", ConstantsUtils.INTESIS_MESSAGE_SET_STATUS_OFF);
-                mSocket.emit("intesis_disconnect");
             }
         }
     }
@@ -184,14 +184,17 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
                         @Override
                         public void call(Object... args) {
                             String message_callback = args[0].toString();
-                            if (message_callback.charAt(13) == 'F') {
+                            int length = message_callback.length();
+                            if (length >= 13 && message_callback.charAt(13) == 'F') {
+                                firstTimeFlag = false;
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         wifiControlSwitch.setChecked(false);
                                     }
                                 });
-                            } else {
+                            } else if (length >= 13 && message_callback.charAt(13) == 'N') {
+                                firstTimeFlag = false;
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -214,6 +217,8 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
                                 if (deviceId.equals(ConstantsUtils.ROOM_SENSOR_ID)) {
                                     switch (componentId) {
                                         case "Temperature":
+                                            Double temperature_value = Double.parseDouble(value);
+                                            value = String.format("%.2f", temperature_value);
                                             value = value + "°C";
                                             final String finalValue = value;
                                             runOnUiThread(new Runnable() {
@@ -224,6 +229,8 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
                                             });
                                             break;
                                         case "Humidity":
+                                            Double humidity_value = Double.parseDouble(value);
+                                            value = String.format("%.2f", humidity_value);
                                             value = value + "%";
                                             final String finalValue1 = value;
                                             runOnUiThread(new Runnable() {
@@ -264,25 +271,25 @@ public class ReadingsActivity extends AppCompatActivity implements CompoundButto
                                     }
                                 } else if (deviceId.equals(ConstantsUtils.WINDOW_SENSOR_ID)) {
                                     switch (componentId) {
-                                        case "Battery Level":
-                                            value = value + "%";
-                                            final String finalValue5 = value;
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    windowSensorBatteryValue.setText(finalValue5);
-                                                }
-                                            });
-                                            break;
-                                        case "Firmware Revision":
-                                            final String finalValue6 = value;
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    windowSensorFirmwareValue.setText(finalValue6);
-                                                }
-                                            });
-                                            break;
+//                                        case "Battery Level":
+//                                            value = value + "%";
+//                                            final String finalValue5 = value;
+//                                            runOnUiThread(new Runnable() {
+//                                                @Override
+//                                                public void run() {
+//                                                    windowSensorBatteryValue.setText(finalValue5);
+//                                                }
+//                                            });
+//                                            break;
+//                                        case "Firmware Revision":
+//                                            final String finalValue6 = value;
+//                                            runOnUiThread(new Runnable() {
+//                                                @Override
+//                                                public void run() {
+//                                                    windowSensorFirmwareValue.setText(finalValue6);
+//                                                }
+//                                            });
+//                                            break;
                                     }
                                 }
                             } catch (JSONException e) {
